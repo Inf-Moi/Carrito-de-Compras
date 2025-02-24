@@ -1,24 +1,71 @@
+/* Estilos Generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
     text-align: center;
 }
 
+/* Contenedor de la tienda */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Título */
+h1 {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    margin: 0;
+}
+
+/* Productos */
 #productos, #carrito {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .producto, .producto-carrito {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 200px;
+    background: white;
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
 
+.producto:hover, .producto-carrito:hover {
+    transform: scale(1.05);
+}
+
+/* Botones */
 button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    padding: 5px 10px;
     margin-top: 10px;
+    transition: 0.3s;
 }
 
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Factura */
+.factura {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -9,14 +9,17 @@
 <body>
     <h1>Tienda Online</h1>
     
-    <div id="productos">
-        <!-- Aquí se generarán los productos dinámicamente -->
-    </div>
+    <div class="container">
+        <h2>Productos</h2>
+        <div id="productos" class="productos-container"></div>
 
-    <h2>Carrito de Compras</h2>
-    <div id="carrito"></div>
-    
-    <button id="finalizarCompra">Finalizar Compra</button>
+        <h2>Carrito de Compras</h2>
+        <div id="carrito" class="carrito-container"></div>
+
+        <button id="finalizarCompra" class="btn">Finalizar Compra</button>
+
+        <div id="facturaContainer"></div> <!-- Aquí se muestra la factura -->
+    </div>
 
     <script src="script.js"></script>
 </body>

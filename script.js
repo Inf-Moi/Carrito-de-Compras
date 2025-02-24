@@ -8,9 +8,11 @@ let carrito = [];
 
 const contenedorProductos = document.getElementById("productos");
 const contenedorCarrito = document.getElementById("carrito");
+const facturaContainer = document.getElementById("facturaContainer");
 
 // Mostrar productos en la tienda
 function mostrarProductos() {
+    contenedorProductos.innerHTML = "";
     productos.forEach(producto => {
         let div = document.createElement("div");
         div.classList.add("producto");
@@ -18,7 +20,7 @@ function mostrarProductos() {
             <h3>${producto.nombre}</h3>
             <p>Precio: $${producto.precio}</p>
             <p>Stock: ${producto.stock}</p>
-            <button onclick="agregarAlCarrito(${producto.id})">Agregar</button>
+            <button class="btn" onclick="agregarAlCarrito(${producto.id})">Agregar</button>
         `;
         contenedorProductos.appendChild(div);
     });
@@ -37,6 +39,7 @@ function agregarAlCarrito(id) {
         }
         producto.stock--;
         actualizarCarrito();
+        mostrarProductos();
     } else {
         alert("Producto sin stock");
     }
@@ -52,7 +55,7 @@ function actualizarCarrito() {
             <h3>${producto.nombre}</h3>
             <p>Cantidad: ${producto.cantidad}</p>
             <p>Precio total: $${producto.precio * producto.cantidad}</p>
-            <button onclick="eliminarDelCarrito(${producto.id})">Eliminar</button>
+            <button class="btn" onclick="eliminarDelCarrito(${producto.id})">Eliminar</button>
         `;
         contenedorCarrito.appendChild(div);
     });
@@ -71,29 +74,35 @@ function eliminarDelCarrito(id) {
     productoOriginal.stock++;
 
     actualizarCarrito();
+    mostrarProductos();
 }
 
-// Finalizar compra y mostrar factura
-document.getElementById("finalizarCompra").addEventListener("click", () => {
+// Finalizar compra y mostrar factura en pantalla
+function mostrarFactura() {
+    facturaContainer.innerHTML = "";
     if (carrito.length === 0) {
         alert("El carrito está vacío.");
         return;
     }
 
-    let factura = "Factura de compra:\n";
-    let total = 0;
+    let facturaHTML = `<div class="factura">
+        <h2>Factura de Compra</h2>
+        <ul>`;
 
+    let total = 0;
     carrito.forEach(p => {
-        factura += `${p.nombre} - ${p.cantidad} x $${p.precio} = $${p.precio * p.cantidad}\n`;
+        facturaHTML += `<li>${p.nombre} - ${p.cantidad} x $${p.precio} = $${p.precio * p.cantidad}</li>`;
         total += p.precio * p.cantidad;
     });
 
-    factura += `\nTotal a pagar: $${total}`;
-    alert(factura);
-    
-    // Vaciar el carrito
+    facturaHTML += `</ul><h3>Total a pagar: $${total}</h3></div>`;
+    facturaContainer.innerHTML = facturaHTML;
+
+    // Vaciar el carrito después de la compra
     carrito = [];
     actualizarCarrito();
-});
+}
+
+document.getElementById("finalizarCompra").addEventListener("click", mostrarFactura);
 
 mostrarProductos();
