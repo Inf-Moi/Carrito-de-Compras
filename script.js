@@ -95,12 +95,46 @@ function mostrarFactura() {
         total += p.precio * p.cantidad;
     });
 
-    facturaHTML += `</ul><h3>Total a pagar: $${total}</h3></div>`;
+    facturaHTML += `</ul>
+        <h3>Total a pagar: $${total}</h3>
+        <button class="btn" onclick="imprimirFactura()">🖨 Imprimir</button>
+    </div>`;
+
     facturaContainer.innerHTML = facturaHTML;
 
     // Vaciar el carrito después de la compra
     carrito = [];
     actualizarCarrito();
+}
+
+// Función para imprimir la factura en una nueva ventana
+function imprimirFactura() {
+    let factura = document.querySelector(".factura");
+    let ventanaImpresion = window.open("", "_blank");
+    ventanaImpresion.document.write(`
+        <html>
+            <head>
+                <title>Factura</title>
+                <style>
+                    body { text-align: center; font-family: 'Arial', sans-serif; }
+                    .factura {
+                        border: 2px dashed black;
+                        padding: 20px;
+                        width: 300px;
+                        margin: auto;
+                        text-align: center;
+                    }
+                    ul { list-style: none; padding: 0; }
+                    button { display: none; } /* Ocultar botón de imprimir al imprimir */
+                </style>
+            </head>
+            <body>
+                ${factura.outerHTML}
+            </body>
+        </html>
+    `);
+    ventanaImpresion.document.close();
+    ventanaImpresion.print();
 }
 
 document.getElementById("finalizarCompra").addEventListener("click", mostrarFactura);
